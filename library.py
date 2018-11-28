@@ -1,7 +1,15 @@
+"""
+抽象出来三个对象
+读者 1读者列表 2查询 3借书 4还书
+图书馆 1书籍列表 2查询 3借书 4还书
+图书馆系统 对读者和图书进行管理
+"""
+
 # import os
 import json
 
-"""book_dict = {'book_a': ['author_a'], 'book_b': ['author_b'], 'book_c': ['author_c'],
+"""
+book_dict = {'book_a': ['author_a'], 'book_b': ['author_b'], 'book_c': ['author_c'],
              'book_d': ['author_d'], 'book_e': ['author_e']}
 reader_dict = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0}
 os.mknod('read_dict.json')
@@ -13,7 +21,8 @@ f.close()
 os.mknod('book_dict.json')
 g = open('book_dict', 'w')
 g.writelines(json.dumps(book_dict)+'\n')
-g.close"""
+g.close
+"""
 
 f = open('book_dict.json', 'r')
 book_dict = json.load(f)
