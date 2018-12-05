@@ -11,59 +11,50 @@ def swap(list0, a, b):
     list0[b] = c
 
 
-def quick_sort(list0):
+def quick_sort(list0, left, right):
     """快速排序，可以考虑递归实现"""
-    pivot = len(list0)//2
+    # left = 0
+    # right = len(list0) - 1
+    pivot = (left + right)//2
     print('排序前', list0)
+    dd = list0[pivot]
     print('基准点', list0[pivot])
     # 基准点和最右边互换
-    swap(list0, pivot, -1)
+    swap(list0, pivot, right)
     # 最左边插入边界,这个边界不用在列表里边，无形的更好操作
-    n = 0
+    boundary = left
     # border = n
     # 遍历并移动边界
-    for i in range(0, len(list0)-1):
+    for i in range(left, right):
         # 如果小于基准点和边界后边一位互换，移动边界
-        if list0[i] < list0[-1]:
-            swap(list0, n, i)
+        if list0[i] < dd:
+            swap(list0, boundary, i)
             # 移动边界
-            n = n + 1
+            boundary = boundary + 1
 
     # 基准点和边界互换
-    swap(list0, n, -1)
+    swap(list0, boundary, right)
     print('排序后', list0)
-    # 长度大于等于2继续进行切割
-    if len(list0) >= 2:
-        if n < len(list0)-1:
-            print('a')
-            list3 = list0[0:n]
-            list2 = list0[n+1:]
-            print('分割1', list3)
-            print('分割2', list2)
-            if len(list3) >= 2:
-                quick_sort(list3)
-            if len(list2) >= 2:
-                quick_sort(list2)
-            # 这两个函数的先后顺序迭代有什么区别?
-            # quick_sort(list3)
-            # quick_sort(list2)
-            # return list2, list3
-        if n == len(list0)-1:
-            print('b')
-            list3 = list0[0:n]
-            quick_sort(list3)
-            # return list3
-    else:
+    return boundary
+    # 构造辅助函数和直接表达的区别， 为啥直接表达不对，还是各种变量传值传引用的问题
+    # if right - left > 0:
+        # quick_sort(list0, left, boundary-1)
+        # quick_sort(list0, boundary+1, right)
 
-        return 'over'
+
+def quick_sort_helper(list0, left, right):
+    if left < right:
+        pivot_location = quick_sort(list0, left, right)
+        quick_sort_helper(list0, left, pivot_location-1)
+        quick_sort_helper(list0, pivot_location+1, right)
 
 
 list1 = [9, 3, 2, 1, 5, 7, 6, 4]
 # 如果想这样直接赋给test， 则必须有return， 否则直接quick_sort(list1)就行了
-test = quick_sort(list1)
-print(test)
+quick_sort_helper(list1, 0, len(list1)-1)
+print(list1)
 # 啥都没有的list长度为0
-print(len([]))
+# print(len([]))
 
 
 
